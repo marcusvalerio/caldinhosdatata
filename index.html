@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caldeirada da Tata · Gestão</title>
+  <!-- Fontes e ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fbf3e8;  /* tom quente base */
+      font-family: 'Quicksand', sans-serif;
+      color: #3e2c1b;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* cabeçalho com logo */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      background: #fff6ed;
+      padding: 16px 32px;
+      border-radius: 60px 60px 30px 30px;
+      box-shadow: 0 8px 20px rgba(180, 100, 40, 0.08);
+      margin-bottom: 32px;
+      border: 1px solid #f7dcc8;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      background: #d66b3d;
+      width: 56px;
+      height: 56px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fef3e6;
+      font-size: 28px;
+      box-shadow: 0 4px 0 #a84f2a;
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #4d2e19;
+    }
+
+    .logo-text span {
+      color: #d66b3d;
+      background: #fae1d0;
+      padding: 0 10px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .slogan {
+      background: #e9d5c0;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #4d2e19;
+      letter-spacing: 0.3px;
+      border: 1px solid #dbb99a;
+    }
+
+    .slogan i {
+      margin-right: 6px;
+      color: #b45f34;
+    }
+
+    /* cards / abas */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 28px;
+      border-bottom: 2px solid #f0dccb;
+      padding-bottom: 8px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 12px 28px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #6b4d32;
+      border-radius: 40px 40px 12px 12px;
+      transition: 0.25s;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .tab-btn i {
+      font-size: 18px;
+      color: #bb7a53;
+    }
+
+    .tab-btn:hover {
+      background: #f5e4d7;
+      color: #3e2413;
+    }
+
+    .tab-btn.active {
+      background: #d66b3d;
+      color: #fff6ed;
+      box-shadow: 0 4px 8px rgba(190, 90, 40, 0.25);
+    }
+
+    .tab-btn.active i {
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+      background: #fffcf7;
+      border-radius: 48px 48px 32px 32px;
+      padding: 32px 30px;
+      box-shadow: 0 10px 30px rgba(150, 80, 30, 0.06);
+      border: 1px solid #f0ddcc;
+      margin-bottom: 40px;
+      transition: all 0.15s;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 32px;
+      padding: 24px 24px 28px;
+      box-shadow: 0 6px 18px rgba(160, 90, 40, 0.05);
+      border: 1px solid #f2e0d0;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #3e2413;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px dashed #edcfba;
+      padding-bottom: 14px;
+    }
+
+    .card h3 i {
+      color: #d66b3d;
+      font-size: 22px;
+    }
+
+    .label-group {
+      margin-bottom: 18px;
+    }
+
+    .label-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 15px;
+      color: #5a3a22;
+      margin-bottom: 6px;
+    }
+
+    .label-group input, 
+    .label-group textarea,
+    .label-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #ecdacb;
+      border-radius: 40px;
+      font-size: 15px;
+      font-family: 'Quicksand', sans-serif;
+      background: white;
+      transition: 0.2s;
+    }
+
+    .label-group input:focus, 
+    .label-group textarea:focus {
+      outline: none;
+      border-color: #d66b3d;
+      box-shadow: 0 0 0 3px #f7dcc8;
+    }
+
+    .btn {
+      background: #d66b3d;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 60px;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 4px 0 #a84f2a;
+      border: 1px solid #e38355;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .btn:hover {
+      background: #bf5a30;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #8f4422;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #4d2e19;
+      box-shadow: none;
+      border: 2px solid #dbb99a;
+    }
+
+    .btn-outline:hover {
+      background: #f5e4d7;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .etiqueta-preview {
+      background: #fffcf2;
+      border-radius: 28px;
+      padding: 20px;
+      border: 2px dashed #dbb99a;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .etiqueta-preview .nome-caldinho {
+      font-size: 34px;
+      font-weight: 700;
+      color: #4d2e19;
+    }
+
+    .etiqueta-preview .detalhes {
+      font-size: 18px;
+      color: #754e2c;
+    }
+
+    .badge-valor {
+      background: #d66b3d10;
+      border-radius: 40px;
+      padding: 12px 20px;
+      border: 1px solid #d66b3d30;
+      display: inline-block;
+    }
+
+    .lista-vendas {
+      margin-top: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .venda-item {
+      background: #fcf3ea;
+      padding: 12px 16px;
+      border-radius: 40px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      border-left: 6px solid #d66b3d;
+    }
+
+    .crm-card {
+      background: #fdf6ef;
+      border-radius: 28px;
+      padding: 20px;
+    }
+
+    .cliente-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0dccb;
+    }
+
+    .cliente-item:last-child {
+      border: none;
+    }
+
+    .cliente-nome {
+      font-weight: 600;
+    }
+
+    .cliente-ultima {
+      color: #7f5d41;
+      font-size: 14px;
+    }
+
+    .mensagem-acolhedora {
+      background: #fae7da;
+      border-radius: 80px;
+      padding: 14px 24px;
+      font-weight: 600;
+      color: #4d2e19;
+      border: 1px solid #dbb99a;
+    }
+
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .mt-20 { margin-top: 20px; }
+
+    @media (max-width: 800px) {
+      .grid-2col { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- cabeçalho com logo -->
+  <div class="header">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fas fa-utensil-spoon"></i></div>
+      <div class="logo-text">CALDINHOS <span>da Tata</span></div>
+    </div>
+    <div class="slogan">
+      <i class="fas fa-heart" style="color: #d66b3d;"></i> DA PANELA PARA A SUA MESA.
+    </div>
+  </div>
+
+  <!-- abas -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="tab-etiquetas"><i class="fas fa-tags"></i> Etiquetas</button>
+    <button class="tab-btn" data-tab="tab-custos"><i class="fas fa-calculator"></i> Custos & Margem</button>
+    <button class="tab-btn" data-tab="tab-vendas"><i class="fas fa-cash-register"></i> Vendas</button>
+    <button class="tab-btn" data-tab="tab-crm"><i class="fas fa-hand-holding-heart"></i> CRM · Acolher</button>
+  </div>
+
+  <!-- ========== ABA ETIQUETAS ========== -->
+  <div id="tab-etiquetas" class="tab-content active">
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-pen-fancy"></i> Gerar etiqueta</h3>
+        <div class="label-group">
+          <label>Nome do caldo</label>
+          <input type="text" id="nomeCaldo" placeholder="Ex: Caldo de Mandioca" value="Caldo de Fruta">
+        </div>
+        <div class="label-group">
+          <label>Ingredientes principais</label>
+          <input type="text" id="ingredientes" placeholder="Frango, mandioca, temperos" value="Frango, mandioca, cheiro-verde">
+        </div>
+        <div class="label-group">
+          <label>Valor (R$)</label>
+          <input type="number" id="valorEtiqueta" placeholder="0,00" value="22.50" step="0.01">
+        </div>
+        <button class="btn" id="btnGerarEtiqueta"><i class="fas fa-stamp"></i> Atualizar etiqueta</button>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-print"></i> Pré-visualização</h3>
+        <div class="etiqueta-preview" id="previewEtiqueta">
+          <div style="display: flex; justify-content: center; gap: 8px; align-items: center; background: #fae1d0; border-radius: 60px; padding: 6px 18px; margin-bottom: 16px; width: fit-content; margin-left: auto; margin-right: auto;">
+            <i class="fas fa-utensil-spoon" style="color: #d66b3d;"></i> <span style="font-weight: 600;">CALDINHOS da Tata</span>
+          </div>
+          <div class="nome-caldinho" id="previewNome">Caldo de Fruta</div>
+          <div class="detalhes" id="previewIngredientes">Frango, mandioca, cheiro-verde</div>
+          <div style="margin-top: 18px;" class="badge-valor" id="previewValor">R$ 22,50</div>
+          <div style="margin-top: 16px; font-size: 13px; color: #a67c5c;"><i class="fas fa-utensils"></i> 500ml · da panela para sua mesa</div>
+        </div>
+        <button class="btn btn-outline" style="margin-top: 14px;" id="btnImprimirEtiqueta"><i class="fas fa-print"></i> Imprimir etiqueta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ABA CUSTOS E MARGEM ========== -->
+  <div id="tab-custos" class="tab-content">
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-coins"></i> Custos & margem</h3>
+        <div class="label-group">
+          <label>Custo total (ingredientes + embalagem)</label>
+          <input type="number" id="custoTotal" placeholder="0,00" value="12.00" step="0.01">
+        </div>
+        <div class="label-group">
+          <label>Margem desejada (%)</label>
+          <input type="number" id="margemPercent" placeholder="Ex: 60" value="60" step="1">
+        </div>
+        <button class="btn" id="btnCalcularPreco"><i class="fas fa-sync-alt"></i> Calcular preço sugerido</button>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-chart-line"></i> Sugestão de venda</h3>
+        <div style="font-size: 48px; font-weight: 700; color: #4d2e19;" id="precoSugerido">R$ 19,20</div>
+        <div style="margin-top: 8px; background: #e6d4c2; padding: 6px 18px; border-radius: 60px; display: inline-block;">com base na margem informada</div>
+        <div style="margin-top: 20px; background: #fcf3ea; border-radius: 24px; padding: 12px;">
+          <i class="fas fa-info-circle" style="color: #d66b3d;"></i> Lembre-se de considerar frete e taxas, se houver.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ABA VENDAS ========== -->
+  <div id="tab-vendas" class="tab-content">
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-plus-circle"></i> Registrar venda</h3>
+        <div class="label-group">
+          <label>Produto</label>
+          <input type="text" id="produtoVenda" placeholder="Caldo de Fruta" value="Caldo de Fruta">
+        </div>
+        <div class="label-group">
+          <label>Valor (R$)</label>
+          <input type="number" id="valorVenda" placeholder="0,00" value="22.50" step="0.01">
+        </div>
+        <div class="label-group">
+          <label>Cliente (opcional)</label>
+          <input type="text" id="clienteVenda" placeholder="Nome do cliente" value="Cliente 1">
+        </div>
+        <div class="flex-row">
+          <button class="btn" id="btnRegistrarVenda"><i class="fas fa-save"></i> Registrar</button>
+          <span style="font-size: 14px; color: #7f5d41;"><i class="far fa-clock"></i> horário automático</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-list-ul"></i> Últimas vendas</h3>
+        <div id="listaVendasContainer" class="lista-vendas">
+          <div class="venda-item"><span>🥣 Caldo de Fruta</span> <span>R$ 22,50 · 19/06 14:30</span></div>
+          <div class="venda-item"><span>🥣 Caldo de Mandioca</span> <span>R$ 20,00 · 19/06 12:10</span></div>
+        </div>
+        <button class="btn btn-outline" style="margin-top: 12px;" id="btnLimparVendas"><i class="fas fa-eraser"></i> Limpar histórico</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ABA CRM (acolhedor) ========== -->
+  <div id="tab-crm" class="tab-content">
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-users"></i> Clientes · última compra</h3>
+        <div id="crmLista">
+          <div class="cliente-item"><span class="cliente-nome">Cliente 1</span> <span class="cliente-ultima">Última: 19/06 14:30</span></div>
+          <div class="cliente-item"><span class="cliente-nome">Cliente 2</span> <span class="cliente-ultima">Última: 10/06 09:20</span></div>
+          <div class="cliente-item"><span class="cliente-nome">Cliente 3</span> <span class="cliente-ultima">Última: 02/06 18:00</span></div>
+        </div>
+        <div class="mensagem-acolhedora" style="margin-top: 20px;">
+          <i class="fas fa-heart" style="color: #d66b3d;"></i> “Oii, sentimos sua falta! Que tal um caldinho especial hoje?”
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-gift"></i> Lembrar & acolher</h3>
+        <div class="label-group">
+          <label>Nome do cliente</label>
+          <input type="text" id="crmClienteNome" placeholder="Ex: Maria" value="Maria">
+        </div>
+        <div class="label-group">
+          <label>Dias sem comprar</label>
+          <input type="number" id="crmDias" value="12" min="1">
+        </div>
+        <button class="btn" id="btnGerarMensagem"><i class="fas fa-comment-dots"></i> Gerar mensagem acolhedora</button>
+        <div id="crmMensagemGerada" style="margin-top: 20px; background: #f3e3d6; border-radius: 60px; padding: 18px 24px; font-weight: 500; border-left: 6px solid #d66b3d;">
+          <i class="fas fa-quote-left" style="color: #d66b3d; opacity: 0.5;"></i> “Maria, já faz 12 dias que não tomamos um caldo juntos! Que tal voltar? Temos uma novidade deliciosa esperando por você 💛”
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    // ----- TABS -----
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const targetId = this.dataset.tab;
+        tabs.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        contents.forEach(c => c.classList.remove('active'));
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    // ----- ETIQUETAS -----
+    const nomeCaldo = document.getElementById('nomeCaldo');
+    const ingredientes = document.getElementById('ingredientes');
+    const valorEtiqueta = document.getElementById('valorEtiqueta');
+    const previewNome = document.getElementById('previewNome');
+    const previewIngredientes = document.getElementById('previewIngredientes');
+    const previewValor = document.getElementById('previewValor');
+
+    function atualizarPreview() {
+      previewNome.textContent = nomeCaldo.value || 'Caldo da Tata';
+      previewIngredientes.textContent = ingredientes.value || 'Ingredientes especiais';
+      const val = parseFloat(valorEtiqueta.value) || 0;
+      previewValor.textContent = `R$ ${val.toFixed(2).replace('.', ',')}`;
+    }
+
+    document.getElementById('btnGerarEtiqueta').addEventListener('click', atualizarPreview);
+    // inicializar
+    atualizarPreview();
+
+    document.getElementById('btnImprimirEtiqueta').addEventListener('click', function() {
+      const etq = document.getElementById('previewEtiqueta');
+      const win = window.open('', '_blank');
+      win.document.write(`<html><head><title>Etiqueta Caldinho</title>
+        <style>body { font-family: 'Quicksand', sans-serif; background: #fbf3e8; display: flex; justify-content: center; align-items: center; height: 100vh; } 
+        .etiqueta { background: white; border-radius: 40px; padding: 40px 50px; border: 2px solid #dbb99a; text-align: center; max-width: 400px; }
+        .nome { font-size: 42px; font-weight: 700; color: #4d2e19; } .detalhes { font-size: 20px; } .valor { font-size: 28px; background: #fae1d0; padding: 8px 32px; border-radius: 80px; display: inline-block; margin-top: 16px; } 
+        .logo { background: #d66b3d; color: white; padding: 6px 20px; border-radius: 60px; display: inline-block; }
+        </style></head><body>
+        <div class="etiqueta">
+          <div class="logo"><i class="fas fa-utensil-spoon"></i> CALDINHOS da Tata</div>
+          <div class="nome">${previewNome.textContent}</div>
+          <div class="detalhes">${previewIngredientes.textContent}</div>
+          <div class="valor">${previewValor.textContent}</div>
+          <div style="margin-top: 20px; color: #7f5d41;">da panela para sua mesa</div>
+        </div>
+        <script>setTimeout(() => window.print(), 400);<\/script>
+        </body></html>`);
+      win.document.close();
+    });
+
+    // ----- CUSTOS E MARGEM -----
+    document.getElementById('btnCalcularPreco').addEventListener('click', function() {
+      const custo = parseFloat(document.getElementById('custoTotal').value) || 0;
+      const margem = parseFloat(document.getElementById('margemPercent').value) || 0;
+      if (custo <= 0) { alert('Informe um custo válido.'); return; }
+      const preco = custo / (1 - (margem / 100));
+      document.getElementById('precoSugerido').textContent = `R$ ${preco.toFixed(2).replace('.', ',')}`;
+    });
+
+    // ----- VENDAS -----
+    const listaVendas = document.getElementById('listaVendasContainer');
+    const produtoVenda = document.getElementById('produtoVenda');
+    const valorVenda = document.getElementById('valorVenda');
+    const clienteVenda = document.getElementById('clienteVenda');
+
+    function adicionarVenda(produto, valor, cliente) {
+      const now = new Date();
+      const horario = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      const div = document.createElement('div');
+      div.className = 'venda-item';
+      const nomeCliente = cliente ? ` (${cliente})` : '';
+      div.innerHTML = `<span>🥣 ${produto}${nomeCliente}</span> <span>R$ ${parseFloat(valor).toFixed(2).replace('.',',')} · ${horario}</span>`;
+      listaVendas.prepend(div);
+      // atualiza CRM (simples)
+      atualizarCRM(produto, cliente, horario);
+    }
+
+    document.getElementById('btnRegistrarVenda').addEventListener('click', function() {
+      const prod = produtoVenda.value.trim() || 'Caldo';
+      const val = parseFloat(valorVenda.value) || 0;
+      if (val <= 0) { alert('Informe um valor válido.'); return; }
+      const cliente = clienteVenda.value.trim() || '';
+      adicionarVenda(prod, val, cliente);
+      // limpar campos opcionais
+      if (!clienteVenda.value.trim()) clienteVenda.value = '';
+    });
+
+    document.getElementById('btnLimparVendas').addEventListener('click', function() {
+      if (confirm('Limpar todas as vendas registradas?')) {
+        listaVendas.innerHTML = '';
+      }
+    });
+
+    // ----- CRM (simples) -----
+    function atualizarCRM(produto, cliente, horario) {
+      if (!cliente) return;
+      const crmLista = document.getElementById('crmLista');
+      // procura se cliente já existe
+      const items = crmLista.querySelectorAll('.cliente-item');
+      let found = false;
+      items.forEach(item => {
+        const nomeSpan = item.querySelector('.cliente-nome');
+        if (nomeSpan && nomeSpan.textContent === cliente) {
+          const ultimaSpan = item.querySelector('.cliente-ultima');
+          if (ultimaSpan) ultimaSpan.textContent = `Última: ${horario}`;
+          found = true;
+        }
+      });
+      if (!found) {
+        const newItem = document.createElement('div');
+        newItem.className = 'cliente-item';
+        newItem.innerHTML = `<span class="cliente-nome">${cliente}</span> <span class="cliente-ultima">Última: ${horario}</span>`;
+        crmLista.prepend(newItem);
+      }
+    }
+
+    // ----- Mensagem acolhedora (CRM) -----
+    document.getElementById('btnGerarMensagem').addEventListener('click', function() {
+      const nome = document.getElementById('crmClienteNome').value.trim() || 'cliente';
+      const dias = parseInt(document.getElementById('crmDias').value) || 5;
+      const mensagemDiv = document.getElementById('crmMensagemGerada');
+      const emoji = ['💛', '🧡', '❤️', '✨', '🍲', '🥣'][Math.floor(Math.random() * 6)];
+      mensagemDiv.innerHTML = `<i class="fas fa-quote-left" style="color: #d66b3d; opacity: 0.5;"></i> “${nome}, já faz ${dias} dias que não tomamos um caldo juntos! Que tal voltar? Temos uma novidade deliciosa esperando por você ${emoji}”`;
+    });
+
+    // pequena pré-carga de dados de exemplo
+    // (já existem itens no html)
+
+    // ajuste inicial de preço sugestão
+    setTimeout(() => {
+      document.getElementById('btnCalcularPreco').click();
+    }, 100);
+  })();
+</script>
+</body>
+</html>
